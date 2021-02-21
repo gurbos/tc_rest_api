@@ -11,7 +11,7 @@ import (
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", APIHandler)
-	r.HandleFunc("/products", ProductLineHandler).Name("products").Methods("GET")
+	r.HandleFunc("/productLines", ProductLineHandler).Name("productLines")
 	r.HandleFunc("/{productLine:[a-zA-Z]+}/sets", CardSetHandler).Name("sets").Methods("GET")
 	// r.HandleFunc("/{productLine:[a-zA-Z]+}/{set:[a-zA-Z-]+}/cards", CardHandler)
 

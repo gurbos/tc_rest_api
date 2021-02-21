@@ -4,10 +4,9 @@ import tcm "github.com/gurbos/tcmodels"
 
 // Constants representing resource identifiers.
 const (
-	ProductLinesURL        = "http://127.0.0.1:8000/productLine"                                 // Collection of product line info representations.
-	ProductLineCardSetsURL = "http://127.0.0.1:8000/{productLineName}/sets"                      // Collection of set info representations.
-	ProductLineCardsURL    = "http://127.0.0.1:8000/{productLineName}/cards?{setName,from,size}" // Collection of card representations from a specified product line.
-	CardsFromSetURL        = "http://	127.0.0.1:8000/{productLineName}/"
+	ProductLinesURL        = "http://127.0.0.1:8000/productLines?{productName}"                  // Product line representations
+	ProductLineCardSetsURL = "http://127.0.0.1:8000/{productLineName}/sets?{setName}"            // Card set representations
+	ProductLineCardsURL    = "http://127.0.0.1:8000/{productLineName}/cards?{setName,from,size}" // Card representations
 )
 
 type TradingCardAPI struct {
@@ -21,7 +20,6 @@ func (tca *TradingCardAPI) Init() {
 	tca.ProductLinesUrl = ProductLinesURL
 	tca.ProductLineCardSetsURL = ProductLineCardSetsURL
 	tca.ProductLineCardsURL = ProductLineCardsURL
-	tca.CardsFromSetURL = CardsFromSetURL
 }
 
 type ProductLineRep struct {
@@ -36,6 +34,7 @@ type ProductLineRep struct {
 func (plr *ProductLineRep) Set(pl tcm.ProductLine) {
 	plr.Title = pl.Title
 	plr.QueryName = pl.Name
+	plr.SetCount = pl.SetCount
 	plr.CardCount = pl.CardCount
 	plr.Sets.Rel = "collection/sets"
 	plr.Sets.Href = "/" + pl.Name + "/sets"
